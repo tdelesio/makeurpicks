@@ -98,12 +98,18 @@ func main() {
 		client.Database(DbData.DbName).Collection("teams"),
 	}
 
-	fmt.Println("Configuring the serrvices...")
+	fmt.Println("Configuring the services...")
 	teamService := team.TeamService{
 		TeamRepository: &teamDao,
 	}
 
 	teamService.CreateAllTeams(PICKEM)
+
+	fmt.Println("Configuring the static data...")
+	teamMap := teamService.BuildTeamMap(PICKEM)
+	for key, value := range teamMap { // Order not specified
+		fmt.Println(key, value)
+	}
 
 	fmt.Println("Configuring the controllers...")
 
@@ -119,4 +125,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("server launch failed: %v\n", err)
 	}
+
+
 }

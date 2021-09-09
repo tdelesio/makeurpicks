@@ -1,7 +1,9 @@
 package model
 
+import "go.mongodb.org/mongo-driver/bson/primitive"
+
 type Team struct {
-	ID string `json:"_id"`
+	ID primitive.ObjectID `json:"id" bson:"_id,omitempty"`
 	TeamName string
 	City string
 	ShortName string

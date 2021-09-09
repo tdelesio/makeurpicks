@@ -3,7 +3,7 @@ package model
 import "time"
 
 type Game struct {
-	Id       string  `json:"id"`
+	ID string `json:"id" bson:"_id,omitempty"`
 	Spread   float32 `json:"spread"`
 	Seasonid string `json:"seasonid"`
 	Favid  string `json:"favidid"`
