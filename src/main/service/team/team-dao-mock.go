@@ -2,6 +2,7 @@ package team
 
 import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 	"makeurpicks/model"
 )
 
@@ -20,15 +21,12 @@ func (dao *TeamRepositoryTestDummy) CreateTeam(team model.Team) (*model.Team,err
 }
 
 func (dao *TeamRepositoryTestDummy) GetTeam(id string) (model.Team, error) {
-	mongoid, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		panic(err)
-	}
+
 
 	switch id {
 	case "1":
 		return model.Team{
-			ID:         mongoid,
+			ID:         primitive.NewObjectID(),
 			TeamName:   "Team",
 			City:       "City",
 			ShortName:  "TST",
@@ -37,8 +35,8 @@ func (dao *TeamRepositoryTestDummy) GetTeam(id string) (model.Team, error) {
 			LeagueType: "pickem",
 		}, nil
 	default:
-		var team *model.Team = nil
-		return *team, err
+		err := mongo.ErrNoDocuments
+		return model.Team{}, err
 
 	}
 }

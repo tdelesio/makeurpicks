@@ -2,6 +2,7 @@ package team
 
 import (
 	"github.com/stretchr/testify/assert"
+	"go.mongodb.org/mongo-driver/mongo"
 	"makeurpicks/model"
 	"testing"
 )
@@ -36,7 +37,13 @@ func TestCreateTeam(t *testing.T) {
 
 func TestGetAllTeams(t *testing.T) {
 
+	teamService := TeamService{
+		TeamRepository: &TeamRepositoryTestDummy{},
+	}
 
+	teams, err := teamService.GetAllTeams("pickem")
+	assert.Nil(t, err)
+	assert.Equal(t, len(*teams), 2)
 
 
 }
@@ -52,14 +59,17 @@ func TestGetTeam(t *testing.T) {
 	assert.Nil(t, err)
 
 	teams, err = teamService.GetTeam("2")
-	assert.Nil(t, teams)
-	assert.NotNil(t, err)
+	assert.Equal(t, err, mongo.ErrNoDocuments)
 }
 
 func TestBuildTeamMap(t *testing.T) {
 
-}
 
-func TestCreateAllTeams(t *testing.T) {
+	teamService := TeamService{
+		TeamRepository: &TeamRepositoryTestDummy{},
+	}
+
+	team := teamService.BuildTeamMap("pickem")
+	assert.Equal(t, len(team), 32)
 
 }
