@@ -9,19 +9,17 @@ import (
 
 func TestSeasonService_GetCurrentSeasons(t *testing.T) {
 
-	seasonService := SeasonService{
-		SeasonRepository: dao.SeasonRepositoryTestDummy{},
-	}
+	seasonService := SeasonService{SeasonRepository: dao.SeasonRepositoryTestDummy{}}
 
 	seasons, err := seasonService.GetCurrentSeasons()
 
-	assert.Equal(t, 2, len(*seasons))
+	assert.Equal(t, 2, len(seasons))
 	assert.Nil(t, err)
 
 	foundPickem := false
 	foundSuicide := false
 
-	for _, s := range *seasons {
+	for _, s := range seasons {
 		if s.LeagueType == league.PICKEM {
 			foundPickem = true
 		}

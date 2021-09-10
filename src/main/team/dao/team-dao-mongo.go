@@ -16,7 +16,7 @@ type TeamDaoMongo struct {
 	C *mongo.Collection
 }
 
-func (dao *TeamDaoMongo) GetTeam(id string) (model.Team, error) {
+func (dao TeamDaoMongo) GetTeam(id string) (model.Team, error) {
 	filter := bson.D{{"_id", id}}
 
 	var result model.Team
@@ -30,17 +30,19 @@ func (dao *TeamDaoMongo) GetTeam(id string) (model.Team, error) {
 	return result, err
 }
 
-func (dao *TeamDaoMongo) CreateTeam(team model.Team) (*model.Team,error) {
+func (dao TeamDaoMongo) CreateTeam(team model.Team) (model.Team,error) {
 	insertedResult, err := dao.C.InsertOne(context.TODO(), team)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
 	team.ID = insertedResult.InsertedID.(primitive.ObjectID)
-	return &team, nil
+
+	fmt.Printf("Inserted a single document: %+v\n", team)
+	return team, nil
 }
 
-func (dao *TeamDaoMongo) GetTeams(leagueType string) (*[]model.Team,error) {
+func (dao TeamDaoMongo) GetTeams(leagueType string) ([]model.Team,error) {
 	findOptions := options.Find()
 	findOptions.SetLimit(32)
 
@@ -63,5 +65,5 @@ func (dao *TeamDaoMongo) GetTeams(leagueType string) (*[]model.Team,error) {
 	// Close the cursor once finished
 	cur.Close(context.TODO())
 
-	return &results,err
+	return results,err
 }

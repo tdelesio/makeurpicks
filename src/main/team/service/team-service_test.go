@@ -12,7 +12,7 @@ import (
 func TestCreateTeam(t *testing.T) {
 
 	teamService := TeamService{
-		TeamRepository: &dao.TeamRepositoryTestDummy{},
+		TeamRepository: dao.TeamRepositoryTestDummy{},
 	}
 
 	input := model.Team{
@@ -39,12 +39,12 @@ func TestCreateTeam(t *testing.T) {
 func TestGetAllTeams(t *testing.T) {
 
 	teamService := TeamService{
-		TeamRepository: &dao.TeamRepositoryTestDummy{},
+		TeamRepository: dao.TeamRepositoryTestDummy{},
 	}
 
 	teams, err := teamService.GetAllTeams("pickem")
 	assert.Nil(t, err)
-	assert.Equal(t, len(*teams), 2)
+	assert.Equal(t, len(teams), 2)
 
 
 }
@@ -52,7 +52,7 @@ func TestGetAllTeams(t *testing.T) {
 func TestGetTeam(t *testing.T) {
 
 	teamService := TeamService{
-		TeamRepository: &dao.TeamRepositoryTestDummy{},
+		TeamRepository: dao.TeamRepositoryTestDummy{},
 	}
 
 	teams, err := teamService.GetTeam("1")
@@ -67,7 +67,7 @@ func TestBuildTeamMap(t *testing.T) {
 
 
 	teamService := TeamService{
-		TeamRepository: &dao.TeamRepositoryTestDummy{},
+		TeamRepository: dao.TeamRepositoryTestDummy{},
 	}
 
 	team := teamService.BuildTeamMap("pickem")

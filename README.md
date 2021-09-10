@@ -12,6 +12,7 @@ go mod init makeurpicks
 ## Install GO Dependencies
 go get github.com/google/uuid
 go get go.mongodb.org/mongo-driver/mongo
+go get gopkg.in/go-playground/validator.v9
 
 ### MySQL (Not Needed ATM)
 go get -u github.com/go-sql-driver/mysql

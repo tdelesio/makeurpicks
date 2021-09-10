@@ -11,19 +11,19 @@ type TeamService struct {
 	TeamRepository dao.TeamRepository
 }
 
-func (s *TeamService)createTeam(team model.Team)(*model.Team, error) {
+func (s TeamService)createTeam(team model.Team)(model.Team, error) {
 	return s.TeamRepository.CreateTeam(team)
 }
 
-func (s *TeamService)GetAllTeams(leagueType string)(*[]model.Team, error) {
+func (s TeamService)GetAllTeams(leagueType string)([]model.Team, error) {
 	return s.TeamRepository.GetTeams(leagueType)
 }
 
-func (s *TeamService)GetTeam(id string) (model.Team, error) {
+func (s TeamService)GetTeam(id string) (model.Team, error) {
 	return s.TeamRepository.GetTeam(id)
 }
 
-func (s *TeamService)BuildTeamMap(leaguetype string) (map[string]model.Team) {
+func (s TeamService)BuildTeamMap(leaguetype string) (map[string]model.Team) {
 	teamMap:= make(map[string]model.Team)
 
 	teams,err := s.GetAllTeams(leaguetype)
@@ -32,20 +32,20 @@ func (s *TeamService)BuildTeamMap(leaguetype string) (map[string]model.Team) {
 		panic(err)
 	}
 
-	for _, s := range *teams {
+	for _, s := range teams {
 		teamMap[s.ID.String()] = s
 	}
 
 	return teamMap
 }
-func (s *TeamService)CreateAllTeams(leagueType string)  {
+func (s TeamService)CreateAllTeams(leagueType string)  {
 
 	teams,err := s.GetAllTeams(leagueType)
 	if err != nil {
 		// Checks if the movie was not found
 		panic(err)
 	}
-	numTeams := len(*teams)
+	numTeams := len(teams)
 	if numTeams == 0 {
 		fmt.Println("No Teams Found, let's create them")
 		s.CreateAllTeams(leagueType)

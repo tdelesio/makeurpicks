@@ -15,7 +15,7 @@ type SeasonDaoMongo struct {
 	C *mongo.Collection
 }
 
-func (dao SeasonDaoMongo) GetSeasonsByLeagueType(leagyetype string) (*[]model.Season, error) {
+func (dao SeasonDaoMongo) GetSeasonsByLeagueType(leagyetype string) ([]model.Season, error) {
 	findOptions := options.Find()
 
 	var results []model.Season
@@ -39,23 +39,23 @@ func (dao SeasonDaoMongo) GetSeasonsByLeagueType(leagyetype string) (*[]model.Se
 	// Close the cursor once finished
 	cur.Close(context.TODO())
 
-	return &results,err
+	return results,err
 }
 
-func (dao SeasonDaoMongo) CreateSeason(season model.Season) (*model.Season, error) {
+func (dao SeasonDaoMongo) CreateSeason(season model.Season) (model.Season, error) {
 	insertedResult, err := dao.C.InsertOne(context.TODO(), season)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
 	season.ID = insertedResult.InsertedID.(primitive.ObjectID)
 
 	fmt.Println("Inserted a single document: ", insertedResult.InsertedID)
 
-	return &season, nil
+	return season, nil
 }
 
-func (dao SeasonDaoMongo) UpdateSeason(season model.Season) (*model.Season,error) {
+func (dao SeasonDaoMongo) UpdateSeason(season model.Season) (model.Season,error) {
 	filter := bson.D{{"_id", season.ID}}
 
 	updateResult, err := dao.C.UpdateOne(context.TODO(), filter, season)
@@ -65,7 +65,7 @@ func (dao SeasonDaoMongo) UpdateSeason(season model.Season) (*model.Season,error
 
 	fmt.Printf("Matched %v documents and updated %v documents.\n", updateResult.MatchedCount, updateResult.ModifiedCount)
 
-	return &season, err
+	return season, err
 }
 
 func (dao SeasonDaoMongo) DeleteSeason(id string) error {

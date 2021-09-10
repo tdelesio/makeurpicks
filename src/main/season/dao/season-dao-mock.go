@@ -9,7 +9,7 @@ import (
 
 type SeasonRepositoryTestDummy struct {}
 
-func (dao *SeasonRepositoryTestDummy) GetSeasonsByLeagueType(leagyetype string) (*[]model.Season, error) {
+func (dao SeasonRepositoryTestDummy) GetSeasonsByLeagueType(leagyetype string) ([]model.Season, error) {
 
 	t := time.Now()
 	currentYear := t.Year()
@@ -44,11 +44,11 @@ func (dao *SeasonRepositoryTestDummy) GetSeasonsByLeagueType(leagyetype string) 
 
 
 
-	return &seasons, nil
+	return seasons, nil
 }
 
-func (dao *SeasonRepositoryTestDummy) CreateSeason(season model.Season) (*model.Season, error) {
-	return &model.Season{
+func (dao SeasonRepositoryTestDummy) CreateSeason(season model.Season) (model.Season, error) {
+	return model.Season{
 		ID:         primitive.NewObjectID(),
 		LeagueType: "pickem",
 		StartYear:  2021,
@@ -56,10 +56,10 @@ func (dao *SeasonRepositoryTestDummy) CreateSeason(season model.Season) (*model.
 	}, nil
 }
 
-func (dao *SeasonRepositoryTestDummy) DeleteSeason(id string) error {
+func (dao SeasonRepositoryTestDummy) DeleteSeason(id string) error {
 	return nil
 }
 
-func (dao SeasonRepositoryTestDummy) UpdateSeason(season model.Season) (*model.Season,error) {
-	return &season, nil
+func (dao SeasonRepositoryTestDummy) UpdateSeason(season model.Season) (model.Season,error) {
+	return season, nil
 }

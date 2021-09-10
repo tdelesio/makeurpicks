@@ -8,8 +8,8 @@ import (
 
 type TeamRepositoryTestDummy struct {}
 
-func (dao *TeamRepositoryTestDummy) CreateTeam(team model.Team) (*model.Team,error) {
-	return &model.Team{
+func (dao TeamRepositoryTestDummy) CreateTeam(team model.Team) (model.Team,error) {
+	return model.Team{
 		ID:         primitive.NewObjectID(),
 		TeamName:   team.TeamName,
 		City:       team.City,
@@ -20,7 +20,7 @@ func (dao *TeamRepositoryTestDummy) CreateTeam(team model.Team) (*model.Team,err
 	}, nil
 }
 
-func (dao *TeamRepositoryTestDummy) GetTeam(id string) (model.Team, error) {
+func (dao TeamRepositoryTestDummy) GetTeam(id string) (model.Team, error) {
 
 
 	switch id {
@@ -41,7 +41,7 @@ func (dao *TeamRepositoryTestDummy) GetTeam(id string) (model.Team, error) {
 	}
 }
 
-func (dao *TeamRepositoryTestDummy) GetTeams(leagueType string) (*[]model.Team,error) {
+func (dao TeamRepositoryTestDummy) GetTeams(leagueType string) ([]model.Team,error) {
 
 	teams := make([]model.Team, 2)
 	teams = append(teams, model.Team{
@@ -60,5 +60,5 @@ func (dao *TeamRepositoryTestDummy) GetTeams(leagueType string) (*[]model.Team,e
 		LeagueType: "pickem",
 	})
 
-	return &teams, nil
+	return teams, nil
 }

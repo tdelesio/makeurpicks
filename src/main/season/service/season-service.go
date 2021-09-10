@@ -8,22 +8,22 @@ import (
 )
 
 type SeasonService struct {
-	SeasonRepository dao.SeasonDaoMongo
+	SeasonRepository dao.SeasonRepository
 }
 
-func (s *SeasonService)CreateSeason(season model.Season)(*model.Season, error) {
+func (s SeasonService)CreateSeason(season model.Season)(model.Season, error) {
 	return s.SeasonRepository.CreateSeason(season)
 }
 
-func (s *SeasonService)DeleteSeason(id string) {
+func (s SeasonService)DeleteSeason(id string) {
 	s.SeasonRepository.DeleteSeason(id)
 }
 
-func (s *SeasonService)UpdateSeason(season model.Season)(*model.Season, error) {
+func (s SeasonService)UpdateSeason(season model.Season)(model.Season, error) {
 	return s.SeasonRepository.UpdateSeason(season)
 }
 
-func (s *SeasonService)GetCurrentSeasons()(*[]model.Season, error) {
+func (s SeasonService)GetCurrentSeasons()([]model.Season, error) {
 
 	var err error
 	var currentSeasons []model.Season
@@ -36,7 +36,7 @@ func (s *SeasonService)GetCurrentSeasons()(*[]model.Season, error) {
 		if err != nil {
 			err = serr
 		}
-		for _, season := range *seasons {
+		for _, season := range seasons {
 			if season.StartYear == currentYear {
 				currentSeasons = append(currentSeasons,season)
 			}
@@ -45,5 +45,5 @@ func (s *SeasonService)GetCurrentSeasons()(*[]model.Season, error) {
 
 	}
 
-	return &currentSeasons, err
+	return currentSeasons, err
 }
