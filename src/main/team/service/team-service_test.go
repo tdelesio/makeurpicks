@@ -44,7 +44,7 @@ func TestGetAllTeams(t *testing.T) {
 
 	teams, err := teamService.GetAllTeams("pickem")
 	assert.Nil(t, err)
-	assert.Equal(t, len(teams), 2)
+	assert.Equal(t, 2, len(teams))
 
 
 }
@@ -71,6 +71,6 @@ func TestBuildTeamMap(t *testing.T) {
 	}
 
 	team := teamService.BuildTeamMap("pickem")
-	assert.Equal(t, len(team), 32)
+	assert.Equal(t,2, len(team))
 
 }
