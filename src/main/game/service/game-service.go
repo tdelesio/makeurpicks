@@ -1,7 +1,11 @@
-package game
+package service
+
+import (
+	"makeurpicks/game/dao"
+)
 
 type GameService struct {
-	GameRepository GameRepository
+	GameRepository dao.GameRepository
 }
 
 //func (gameService *GameService) CreateGame(game model.Game) (err error) {

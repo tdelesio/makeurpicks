@@ -1,7 +1,7 @@
-package team
+package dao
 
 import (
-	"makeurpicks/model"
+	"makeurpicks/team/model"
 )
 
 type TeamRepository interface {

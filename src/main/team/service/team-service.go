@@ -1,13 +1,14 @@
-package team
+package service
 
 import (
 	"fmt"
-	"makeurpicks/model"
+	"makeurpicks/team/dao"
+	"makeurpicks/team/model"
 )
 
 
 type TeamService struct {
-	TeamRepository TeamRepository
+	TeamRepository dao.TeamRepository
 }
 
 func (s *TeamService)createTeam(team model.Team)(*model.Team, error) {

@@ -1,6 +1,6 @@
-package game
+package dao
 
-import "makeurpicks/src/model"
+import "makeurpicks/game/model"
 
 type GameRepository interface {
 

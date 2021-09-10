@@ -1,9 +1,9 @@
-package team
+package dao
 
 import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
-	"makeurpicks/model"
+	"makeurpicks/team/model"
 )
 
 type TeamRepositoryTestDummy struct {}

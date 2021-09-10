@@ -1,4 +1,4 @@
-package team
+package dao
 
 import (
 	"context"
@@ -8,7 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
-	"makeurpicks/model"
+	"makeurpicks/team/model"
 )
 
 type TeamDaoMongo struct {

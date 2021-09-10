@@ -7,14 +7,15 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 	"log"
+	"makeurpicks/league"
 	"makeurpicks/pogs"
-	team "makeurpicks/service/team"
+	"makeurpicks/team/dao"
+	team "makeurpicks/team/service"
 	"net/http"
 	"time"
 )
 
-const PICKEM = `pickem`
-//const SUICIDE = `suicide`
+
 
 const ProfileLocal = `LOCAL`
 const ProfileDocker = `DOCKER`
@@ -28,6 +29,7 @@ const DockerDbHost = `apollo@aa-roachdb`
 const DockerDbPort = 26257
 const DockerDbName = `apollodb`
 const DockerSslMode = `disable`
+
 
 func main() {
 
@@ -94,7 +96,7 @@ func main() {
 	//fmt.Println("Connected to MongoDB!")
 
 	fmt.Println("Configuring the DAOs...")
-	teamDao := team.TeamDaoMongo{
+	teamDao := dao.TeamDaoMongo{
 		client.Database(DbData.DbName).Collection("teams"),
 	}
 
@@ -103,10 +105,10 @@ func main() {
 		TeamRepository: &teamDao,
 	}
 
-	teamService.CreateAllTeams(PICKEM)
+	teamService.CreateAllTeams(league.PICKEM)
 
 	fmt.Println("Configuring the static data...")
-	teamMap := teamService.BuildTeamMap(PICKEM)
+	teamMap := teamService.BuildTeamMap(league.PICKEM)
 	for key, value := range teamMap { // Order not specified
 		fmt.Println(key, value)
 	}

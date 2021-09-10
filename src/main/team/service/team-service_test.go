@@ -1,9 +1,10 @@
-package team
+package service
 
 import (
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/mongo"
-	"makeurpicks/model"
+	"makeurpicks/team/dao"
+	"makeurpicks/team/model"
 	"testing"
 )
 
@@ -11,7 +12,7 @@ import (
 func TestCreateTeam(t *testing.T) {
 
 	teamService := TeamService{
-		TeamRepository: &TeamRepositoryTestDummy{},
+		TeamRepository: &dao.TeamRepositoryTestDummy{},
 	}
 
 	input := model.Team{
@@ -38,7 +39,7 @@ func TestCreateTeam(t *testing.T) {
 func TestGetAllTeams(t *testing.T) {
 
 	teamService := TeamService{
-		TeamRepository: &TeamRepositoryTestDummy{},
+		TeamRepository: &dao.TeamRepositoryTestDummy{},
 	}
 
 	teams, err := teamService.GetAllTeams("pickem")
@@ -51,7 +52,7 @@ func TestGetAllTeams(t *testing.T) {
 func TestGetTeam(t *testing.T) {
 
 	teamService := TeamService{
-		TeamRepository: &TeamRepositoryTestDummy{},
+		TeamRepository: &dao.TeamRepositoryTestDummy{},
 	}
 
 	teams, err := teamService.GetTeam("1")
@@ -66,7 +67,7 @@ func TestBuildTeamMap(t *testing.T) {
 
 
 	teamService := TeamService{
-		TeamRepository: &TeamRepositoryTestDummy{},
+		TeamRepository: &dao.TeamRepositoryTestDummy{},
 	}
 
 	team := teamService.BuildTeamMap("pickem")
