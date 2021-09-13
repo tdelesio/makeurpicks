@@ -1,7 +1,7 @@
 package service
 
 import (
-	"makeurpicks/league"
+	"makeurpicks/league/service"
 	"makeurpicks/season/dao"
 	"makeurpicks/season/model"
 	"time"
@@ -27,7 +27,7 @@ func (s SeasonService)GetCurrentSeasons()([]model.Season, error) {
 
 	var err error
 	var currentSeasons []model.Season
-	leagueTypes := league.GetLeagueTypes()
+	leagueTypes := service.GetLeagueTypes()
 	t := time.Now()
 	currentYear := t.Year()
 	for _, leagueType := range leagueTypes {

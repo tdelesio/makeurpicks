@@ -7,5 +7,6 @@ type PlayerRepository interface {
 	UpdatePlayer(player model.Player) (model.Player, error)
 	GetPlayer(username string) (model.Player, error)
 	GetPlayers() ([]model.Player,error)
+	GetPlayerByUsername(username string) (model.Player, error)
 
 }

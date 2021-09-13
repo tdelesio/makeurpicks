@@ -8,6 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 	"log"
 	"makeurpicks/league"
+	"makeurpicks/league/service"
 	"makeurpicks/pogs"
 	"makeurpicks/team/dao"
 	team "makeurpicks/team/service"
@@ -105,10 +106,10 @@ func main() {
 		TeamRepository: &teamDao,
 	}
 
-	teamService.CreateAllTeams(league.PICKEM)
+	teamService.CreateAllTeams(service.PICKEM)
 
 	fmt.Println("Configuring the static data...")
-	teamMap := teamService.BuildTeamMap(league.PICKEM)
+	teamMap := teamService.BuildTeamMap(service.PICKEM)
 	for key, value := range teamMap { // Order not specified
 		fmt.Println(key, value)
 	}

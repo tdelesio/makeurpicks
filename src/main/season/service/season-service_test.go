@@ -2,7 +2,7 @@ package service
 
 import (
 	"github.com/stretchr/testify/assert"
-	"makeurpicks/league"
+	"makeurpicks/league/service"
 	"makeurpicks/season/dao"
 	"testing"
 )
@@ -20,10 +20,10 @@ func TestSeasonService_GetCurrentSeasons(t *testing.T) {
 	foundSuicide := false
 
 	for _, s := range seasons {
-		if s.LeagueType == league.PICKEM {
+		if s.LeagueType == service.PICKEM {
 			foundPickem = true
 		}
-		if s.LeagueType == league.SUICIDE {
+		if s.LeagueType == service.SUICIDE {
 			foundSuicide = true
 		}
 	}

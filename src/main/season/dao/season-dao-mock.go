@@ -2,7 +2,7 @@ package dao
 
 import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"makeurpicks/league"
+	"makeurpicks/league/service"
 	"makeurpicks/season/model"
 	"time"
 )
@@ -18,22 +18,22 @@ func (dao SeasonRepositoryTestDummy) GetSeasonsByLeagueType(leagyetype string) (
 	var seasons []model.Season
 
 	switch leagyetype {
-		case league.PICKEM:
+		case service.PICKEM:
 			seasons = append(seasons, model.Season{
 			ID:         primitive.NewObjectID(),
-			LeagueType: league.PICKEM,
+			LeagueType: service.PICKEM,
 			StartYear:  currentYear,
 			EndYear:    followingYear,
 		}, model.Season{
 			ID:         primitive.NewObjectID(),
-			LeagueType: league.PICKEM,
+			LeagueType: service.PICKEM,
 			StartYear:  currentYear-1,
 			EndYear:    followingYear-1,
 		})
-	case league.SUICIDE:
+	case service.SUICIDE:
 		seasons = append(seasons, model.Season{
 			ID:         primitive.NewObjectID(),
-			LeagueType: league.SUICIDE,
+			LeagueType: service.SUICIDE,
 			StartYear:  currentYear,
 			EndYear:    followingYear,
 		})

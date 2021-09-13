@@ -39,8 +39,22 @@ func (dao PlayerDaoMongo) UpdatePlayer(player model.Player) (model.Player, error
 	return player, err
 }
 
-func (dao PlayerDaoMongo) GetPlayer(username string) (model.Player, error) {
-	filter := bson.D{{"_id", username}}
+func (dao PlayerDaoMongo) GetPlayer(id string) (model.Player, error) {
+	filter := bson.D{{"_id", id}}
+
+	var result model.Player
+
+	err := dao.C.FindOne(context.TODO(), filter).Decode(&result)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("Found a single document: %+v\n", result)
+	return result, err
+}
+
+func (dao PlayerDaoMongo) GetPlayerByUsername(username string) (model.Player, error) {
+	filter := bson.D{{"username", username}}
 
 	var result model.Player
 

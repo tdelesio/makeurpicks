@@ -3,7 +3,7 @@ package dao
 import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
-	"makeurpicks/league"
+	"makeurpicks/league/service"
 	"makeurpicks/team/model"
 )
 
@@ -33,7 +33,7 @@ func (dao TeamRepositoryTestDummy) GetTeam(id string) (model.Team, error) {
 			ShortName:  "TST",
 			Theme:      "",
 			FeedName:   "",
-			LeagueType: league.PICKEM,
+			LeagueType: service.PICKEM,
 		}, nil
 	default:
 		err := mongo.ErrNoDocuments
@@ -50,7 +50,7 @@ func (dao TeamRepositoryTestDummy) GetTeams(leagueType string) ([]model.Team,err
 		TeamName:   "Team 1",
 		City:       "City",
 		ShortName:  "TSS!",
-		LeagueType: league.PICKEM,
+		LeagueType: service.PICKEM,
 	}, model.Team{
 		ID:         primitive.NewObjectID(),
 		TeamName:   "Team 2",
@@ -58,7 +58,7 @@ func (dao TeamRepositoryTestDummy) GetTeams(leagueType string) ([]model.Team,err
 		ShortName:  "TST",
 		Theme:      "",
 		FeedName:   "",
-		LeagueType: league.PICKEM,
+		LeagueType: service.PICKEM,
 	})
 
 	return teams, nil
