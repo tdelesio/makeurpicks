@@ -6,7 +6,7 @@ import (
 
 type League struct {
 	ID primitive.ObjectID `json:"id" bson:"_id,omitempty"`
-	LeagueName string `json:"leagueName" validate:"required,password"`
+	LeagueName string `json:"leagueName" bson:"leagueName,omitempty" validate:"required,password"`
 	PaidFor int
 	Money bool
 	Free bool

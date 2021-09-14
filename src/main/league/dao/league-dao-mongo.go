@@ -7,42 +7,42 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
-	"makeurpicks/player/model"
+	"makeurpicks/league/model"
 )
 
-type PlayerDaoMongo struct {
+type LeaguerDaoMongo struct {
 	C *mongo.Collection
 }
 
-func (dao PlayerDaoMongo) CreatePlayer(player model.Player) (model.Player, error) {
-	_, err := dao.C.InsertOne(context.TODO(), player)
+func (dao LeaguerDaoMongo) CreateLeague(league model.League) (model.League, error) {
+	_, err := dao.C.InsertOne(context.TODO(), league)
 	if err != nil {
 		panic(err)
 	}
 
-	//player.Username = insertedResult.InsertedID.(primitive.ObjectID)
+	//league.Username = insertedResult.InsertedID.(primitive.ObjectID)
 
-	fmt.Printf("Inserted a single document: %+v\n", player)
-	return player, nil
+	fmt.Printf("Inserted a single document: %+v\n", league)
+	return league, nil
 }
 
-func (dao PlayerDaoMongo) UpdatePlayer(player model.Player) (model.Player, error) {
-	filter := bson.D{{"_id", player.ID}}
+func (dao LeaguerDaoMongo) UpdateLeague(league model.League) (model.League, error) {
+	filter := bson.D{{"_id", league.ID}}
 
-	updateResult, err := dao.C.UpdateOne(context.TODO(), filter, player)
+	updateResult, err := dao.C.UpdateOne(context.TODO(), filter, league)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	fmt.Printf("Matched %v documents and updated %v documents.\n", updateResult.MatchedCount, updateResult.ModifiedCount)
 
-	return player, err
+	return league, err
 }
 
-func (dao PlayerDaoMongo) GetPlayer(id string) (model.Player, error) {
+func (dao LeaguerDaoMongo) GetLeague(id string) (model.League, error) {
 	filter := bson.D{{"_id", id}}
 
-	var result model.Player
+	var result model.League
 
 	err := dao.C.FindOne(context.TODO(), filter).Decode(&result)
 	if err != nil {
@@ -53,10 +53,10 @@ func (dao PlayerDaoMongo) GetPlayer(id string) (model.Player, error) {
 	return result, err
 }
 
-func (dao PlayerDaoMongo) GetPlayerByUsername(username string) (model.Player, error) {
-	filter := bson.D{{"username", username}}
+func (dao LeaguerDaoMongo) GetLeagueByLeagueName(leaguename string) (model.League, error) {
+	filter := bson.D{{"leagueName", leaguename}}
 
-	var result model.Player
+	var result model.League
 
 	err := dao.C.FindOne(context.TODO(), filter).Decode(&result)
 	if err != nil {
@@ -67,13 +67,14 @@ func (dao PlayerDaoMongo) GetPlayerByUsername(username string) (model.Player, er
 	return result, err
 }
 
-func (dao PlayerDaoMongo) GetPlayers() ([]model.Player, error) {
+
+func (dao LeaguerDaoMongo) GetLeagues() ([]model.League,error) {
 	findOptions := options.Find()
 
-	var results []model.Player
+	var results []model.League
 	cur, err := dao.C.Find(context.TODO(),bson.D{{}}, findOptions)
 	for cur.Next(context.TODO()) {
-		var elem model.Player
+		var elem model.League
 		err := cur.Decode(&elem)
 		if err != nil {
 			log.Fatal(err)
@@ -96,6 +97,3 @@ func (dao PlayerDaoMongo) GetPlayers() ([]model.Player, error) {
 
 	return results,err
 }
-
-
-
